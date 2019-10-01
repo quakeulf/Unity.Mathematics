@@ -94,6 +94,21 @@ namespace Unity.Mathematics
 
         /// <summary>The square root 2. Approximately 1.41.</summary>
         public const float SQRT2 = (float)SQRT2_DBL;
+        
+        /// <summary>Returns the angle in degrees from 0 to 180 between two float3s.</summary>
+        public static float angle(float3 from, float3 to)
+        {
+            return math.degrees(math.acos(math.dot(math.normalize(from), math.normalize(to))));
+        }
+        
+        /// <summary>Returns the signed angle in degrees from 180 to -180 between two float3s.</summary>
+        public static float anglesigned(float3 from, float3 to)
+        {
+            float angle = math.acos(math.dot(math.normalize(from), math.normalize(to)));
+            float3 cross = math.cross(from, to);
+            angle *= math.sign(math.dot(math.up(), cross));
+            return math.degrees(angle);
+        }
 
         /// <summary>Returns the bit pattern of a uint as an int.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
